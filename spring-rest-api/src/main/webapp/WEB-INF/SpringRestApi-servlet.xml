@@ -65,17 +65,11 @@
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>		
     
-    <context:property-placeholder location="classpath:/swagger.properties" />
     <!-- Required so swagger-springmvc can access spring's RequestMappingHandlerMapping  -->
     <mvc:annotation-driven/>
 	<bean class="com.mangofactory.swagger.configuration.SpringSwaggerConfig" />
     
-    
     <!-- Direct static mappings -->
-	<!-- <mvc:resources mapping="*.html" location="/resources/"/> -->
 	<mvc:resources mapping="/resources/**" location="/resources/" />
-    
-    <!-- Serve static content-->
-	<!-- <mvc:default-servlet-handler/> -->
     
  </beans>
