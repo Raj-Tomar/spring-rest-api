@@ -15,7 +15,8 @@
 		http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/tx
 		http://www.springframework.org/schema/tx/spring-tx.xsd">
-
+	
+	<!-- Required to enable Spring post processing on @Configuration classes. -->
 	<context:annotation-config />
  	<context:component-scan base-package="com.raj.beans"/>
  	<context:component-scan base-package="com.raj.controller"/>
@@ -65,11 +66,15 @@
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>		
     
+    <!-- Swagger Configuration Start -->
+    
     <!-- Required so swagger-springmvc can access spring's RequestMappingHandlerMapping  -->
-    <mvc:annotation-driven/>
+   	<mvc:annotation-driven/>
 	<bean class="com.mangofactory.swagger.configuration.SpringSwaggerConfig" />
     
     <!-- Direct static mappings -->
 	<mvc:resources mapping="/resources/**" location="/resources/" />
-    
+	
+	<!-- Swagger Configuration End -->
+	
  </beans>

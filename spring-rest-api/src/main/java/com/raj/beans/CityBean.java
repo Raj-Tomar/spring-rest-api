@@ -8,12 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.wordnik.swagger.annotations.ApiModel;
-import com.wordnik.swagger.annotations.ApiModelProperty;
-
 @Entity
 @Table(name="city")
-@ApiModel("City")
 public class CityBean implements Serializable{
 
 	/**
@@ -24,11 +20,9 @@ public class CityBean implements Serializable{
 	@Id
 	@Column(name="ID")
 	@GeneratedValue
-	@ApiModelProperty(value = "the id of the item", required = true)
 	private Integer id;
 	
 	@Column(name="Name")
-	@ApiModelProperty(value = "name", required = true)
 	private String name;
 	
 	@Column(name="CountryCode")

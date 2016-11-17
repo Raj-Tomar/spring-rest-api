@@ -7,13 +7,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.raj.service.ChartAndGraphService;
-import com.wordnik.swagger.annotations.Api;
 
-@Api(value = "Chart And GraphController", description = "Returns Countries and Cities") // Swagger annotation
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 public class ChartAndGraphController {
 
@@ -22,8 +21,8 @@ public class ChartAndGraphController {
 	
 	private static Logger LOGGER = Logger.getLogger(ChartAndGraphController.class);
 	
+	@ApiOperation(value = "getAllCities", nickname = "Get All Cities")
 	@RequestMapping(value="/getAllCities", method=RequestMethod.POST)
-	@ResponseBody
 	public ResponseEntity<String> getAllCities(@RequestBody String requestData){
 		ResponseEntity<String> result = null;
 		try {
@@ -35,8 +34,8 @@ public class ChartAndGraphController {
 		return result;
 	}
 	
+	@ApiOperation(value = "areaWiseCountries", nickname = "Area Wise Countries")
 	@RequestMapping(value="/areaWiseCountries", method=RequestMethod.POST)
-	@ResponseBody
 	public ResponseEntity<String> areaWiseCountries(@RequestBody String requestData){
 		ResponseEntity<String> result = null;
 		try {
@@ -48,8 +47,8 @@ public class ChartAndGraphController {
 		return result;
 	}
 	
+	@ApiOperation(value = "getAllCountryCode", nickname = "Get All Country Code")
 	@RequestMapping(value="/getAllCountryCode", method=RequestMethod.POST)
-	@ResponseBody
 	public ResponseEntity<String> getAllCountryCode(@RequestBody String requestData){
 		ResponseEntity<String> result = null;
 		try {
@@ -61,8 +60,8 @@ public class ChartAndGraphController {
 		return result;
 	}
 	
+	@ApiOperation(value = "cityWisePopulation", nickname = "City Wise Population")
 	@RequestMapping(value="/cityWisePopulation", method=RequestMethod.POST)
-	@ResponseBody
 	public ResponseEntity<String> cityWisePopulation(@RequestBody String requestData){
 		ResponseEntity<String> result = null;
 		try {
@@ -74,8 +73,8 @@ public class ChartAndGraphController {
 		return result;
 	}
 	
+	@ApiOperation(value = "getStateNames", nickname = "Get State Names")
 	@RequestMapping(value="/getStateNames", method=RequestMethod.POST)
-	@ResponseBody
 	public ResponseEntity<String> getStateNames(@RequestBody String requestData){
 		ResponseEntity<String> result = null;
 		try {
@@ -87,8 +86,8 @@ public class ChartAndGraphController {
 		return result;
 	}
 	
+	@ApiOperation(value = "stateWisePopulation", nickname = "Dtate Wise Population")
 	@RequestMapping(value="/stateWisePopulation", method=RequestMethod.POST)
-	@ResponseBody
 	public ResponseEntity<String> stateWisePopulation(@RequestBody String requestData){
 		ResponseEntity<String> result = null;
 		try {
