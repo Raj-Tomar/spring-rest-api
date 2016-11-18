@@ -40,7 +40,7 @@
         url = decodeURIComponent(url[1]);
       } else {
         //url = "http://petstore.swagger.io/v2/swagger.json";
-        url = "http://localhost:8181/spring-rest/api-docs";
+        url = "http://localhost:8181/spring-rest/v2/api-docs";
       }
 
       hljs.configure({

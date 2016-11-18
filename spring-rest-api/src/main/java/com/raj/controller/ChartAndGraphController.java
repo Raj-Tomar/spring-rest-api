@@ -11,17 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.raj.service.ChartAndGraphService;
 
-import io.swagger.annotations.ApiOperation;
-
 @RestController
+@RequestMapping(value = "/chartandgraph")
 public class ChartAndGraphController {
 
 	@Autowired
 	private ChartAndGraphService chartService;
-	
 	private static Logger LOGGER = Logger.getLogger(ChartAndGraphController.class);
 	
-	@ApiOperation(value = "getAllCities", nickname = "Get All Cities")
 	@RequestMapping(value="/getAllCities", method=RequestMethod.POST)
 	public ResponseEntity<String> getAllCities(@RequestBody String requestData){
 		ResponseEntity<String> result = null;
@@ -34,7 +31,6 @@ public class ChartAndGraphController {
 		return result;
 	}
 	
-	@ApiOperation(value = "areaWiseCountries", nickname = "Area Wise Countries")
 	@RequestMapping(value="/areaWiseCountries", method=RequestMethod.POST)
 	public ResponseEntity<String> areaWiseCountries(@RequestBody String requestData){
 		ResponseEntity<String> result = null;
@@ -47,7 +43,6 @@ public class ChartAndGraphController {
 		return result;
 	}
 	
-	@ApiOperation(value = "getAllCountryCode", nickname = "Get All Country Code")
 	@RequestMapping(value="/getAllCountryCode", method=RequestMethod.POST)
 	public ResponseEntity<String> getAllCountryCode(@RequestBody String requestData){
 		ResponseEntity<String> result = null;
@@ -60,7 +55,6 @@ public class ChartAndGraphController {
 		return result;
 	}
 	
-	@ApiOperation(value = "cityWisePopulation", nickname = "City Wise Population")
 	@RequestMapping(value="/cityWisePopulation", method=RequestMethod.POST)
 	public ResponseEntity<String> cityWisePopulation(@RequestBody String requestData){
 		ResponseEntity<String> result = null;
@@ -73,7 +67,6 @@ public class ChartAndGraphController {
 		return result;
 	}
 	
-	@ApiOperation(value = "getStateNames", nickname = "Get State Names")
 	@RequestMapping(value="/getStateNames", method=RequestMethod.POST)
 	public ResponseEntity<String> getStateNames(@RequestBody String requestData){
 		ResponseEntity<String> result = null;
@@ -86,7 +79,6 @@ public class ChartAndGraphController {
 		return result;
 	}
 	
-	@ApiOperation(value = "stateWisePopulation", nickname = "Dtate Wise Population")
 	@RequestMapping(value="/stateWisePopulation", method=RequestMethod.POST)
 	public ResponseEntity<String> stateWisePopulation(@RequestBody String requestData){
 		ResponseEntity<String> result = null;
