@@ -68,15 +68,11 @@
     
     <!-- Swagger Configuration Start -->
     
-    <!-- Required so swagger-springmvc can access spring's RequestMappingHandlerMapping  -->
+    <!-- Required so springfox can access spring's RequestMappingHandlerMapping  -->
    	<mvc:annotation-driven/>
-	<!-- <bean class="com.mangofactory.swagger.configuration.SpringSwaggerConfig" /> -->
 	<bean class="com.raj.swagger.config.Swagger2Config"/>
 	<bean class="com.raj.swagger.config.WebAppConfig"/>
-    
-    <!-- Direct static mappings -->
-	<mvc:resources mapping="/resources/**" location="/resources/" />
-	
+   
 	<!-- Swagger Configuration End -->
 	
  </beans>
