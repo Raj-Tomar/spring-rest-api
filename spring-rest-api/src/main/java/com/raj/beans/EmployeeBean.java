@@ -1,13 +1,21 @@
 package com.raj.beans;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/**
+ * @author Administrator
+ *
+ */
 @Entity
 @Table(name="employee")
 public class EmployeeBean implements Serializable{
@@ -39,7 +47,10 @@ public class EmployeeBean implements Serializable{
 	
 	@Column(name="status")
 	private String status;
-
+	
+	@OneToMany(mappedBy="employee",cascade=CascadeType.PERSIST)
+	private Set<DepartmentBean> department = new HashSet<DepartmentBean>();
+	
 	public Integer getId() {
 		return id;
 	}
@@ -96,4 +107,11 @@ public class EmployeeBean implements Serializable{
 		this.status = status;
 	}
 
+	public Set<DepartmentBean> getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Set<DepartmentBean> department) {
+		this.department = department;
+	}
 }

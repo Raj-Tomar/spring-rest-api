@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.raj.beans.DepartmentBean;
+import com.raj.beans.DeptContactDetail;
 import com.raj.beans.EmployeeBean;
 import com.raj.dao.EmployeeDao;
 
@@ -174,6 +175,52 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		}
 		return status;
 	
+	}
+
+	@Override
+	public List<DepartmentBean> getAllDepartment() {
+		Session session = null;
+		List<DepartmentBean> list = new ArrayList<DepartmentBean>();
+		try {
+			session = sessionFactory.openSession();
+			// Hibernate 5.2 Criteria
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<DepartmentBean> criteria = builder.createQuery( DepartmentBean.class );
+			Root<DepartmentBean> root = criteria.from( DepartmentBean.class );
+			criteria.select( root );
+			list = session.createQuery( criteria ).getResultList();
+			LOGGER.info("Total Employees: "+list.size());
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(session.isOpen()){
+				session.close();
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<DeptContactDetail> getAllDepartmentContact() {
+		Session session = null;
+		List<DeptContactDetail> list = new ArrayList<DeptContactDetail>();
+		try {
+			session = sessionFactory.openSession();
+			// Hibernate 5.2 Criteria
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<DeptContactDetail> criteria = builder.createQuery( DeptContactDetail.class );
+			Root<DeptContactDetail> root = criteria.from( DeptContactDetail.class );
+			criteria.select( root );
+			list = session.createQuery( criteria ).getResultList();
+			LOGGER.info("Total Employees: "+list.size());
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(session.isOpen()){
+				session.close();
+			}
+		}
+		return list;
 	}
 
 }

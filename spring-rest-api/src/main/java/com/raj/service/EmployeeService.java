@@ -30,5 +30,16 @@ public interface EmployeeService {
 	 * @return
 	 */
 	public String saveOrUpdateDepartment(String requestData);
+	/**
+	 * @param requestData
+	 * @return
+	 */
+	public String getAllDepartment(String requestData);
+	
+	/**
+	 * @param requestData
+	 * @return
+	 */
+	public String getAllDepartmentContact(String requestData);
 	
 }

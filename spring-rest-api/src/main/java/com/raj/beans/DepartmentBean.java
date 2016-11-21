@@ -1,11 +1,17 @@
 package com.raj.beans;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,7 +30,17 @@ public class DepartmentBean implements Serializable{
 	
 	@Column(name = "dept_location")
 	private String departmentLocation;
+	
+	@Column(name = "status")
+	private String status;
 
+	@ManyToOne(cascade=CascadeType.PERSIST)
+	@JoinColumn(name="employee_id")
+	private EmployeeBean employee;
+	
+	@OneToMany(mappedBy="department",cascade=CascadeType.PERSIST)
+	private Set<DeptContactDetail> deptContactDetail = new HashSet<DeptContactDetail>();
+	
 	public Integer getId() {
 		return id;
 	}
@@ -48,5 +64,28 @@ public class DepartmentBean implements Serializable{
 	public void setDepartmentLocation(String departmentLocation) {
 		this.departmentLocation = departmentLocation;
 	}
-	
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public EmployeeBean getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(EmployeeBean employee) {
+		this.employee = employee;
+	}
+
+	public Set<DeptContactDetail> getDeptContactDetail() {
+		return deptContactDetail;
+	}
+
+	public void setDeptContactDetail(Set<DeptContactDetail> deptContactDetail) {
+		this.deptContactDetail = deptContactDetail;
+	}
 }

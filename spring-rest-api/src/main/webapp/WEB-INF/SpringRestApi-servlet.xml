@@ -45,6 +45,7 @@
 	   			<value>com.raj.beans.CountryBean</value>
 	   			<value>com.raj.beans.EmployeeBean</value>
 	   			<value>com.raj.beans.DepartmentBean</value>
+	   			<value>com.raj.beans.DeptContactDetail</value>
 	  		</list>
  		</property> 
         <property name="hibernateProperties">

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.raj.beans.DepartmentBean;
+import com.raj.beans.DeptContactDetail;
 import com.raj.beans.EmployeeBean;
 
 @Repository
@@ -36,5 +37,15 @@ public interface EmployeeDao {
 	 * @return
 	 */
 	public String saveOrUpdateDepartment(DepartmentBean bean);
+	
+	/**
+	 * @return
+	 */
+	public List<DepartmentBean> getAllDepartment();
+	
+	/**
+	 * @return
+	 */
+	public List<DeptContactDetail> getAllDepartmentContact();
 	
 }

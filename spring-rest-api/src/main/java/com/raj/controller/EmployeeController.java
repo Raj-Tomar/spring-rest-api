@@ -130,4 +130,37 @@ public class EmployeeController {
 		return result;
 	}
 	
+	/**
+	 * @param requestData
+	 * @return
+	 */
+	@RequestMapping(value="/getAllDepartment", method=RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	public ResponseEntity<String> getAllDepartment(@RequestBody String requestData){
+		logger.info("getAllDepartment in controller");
+		ResponseEntity<String> result = null;
+		try {
+			String status = employeeService.getAllDepartment(requestData);
+			result = new ResponseEntity<String>(status, HttpStatus.OK);
+		} catch (Exception e) {
+			logger.error("Exception: "+e.getMessage());
+		}
+		return result;
+	}
+	
+	/**
+	 * @param requestData
+	 * @return
+	 */
+	@RequestMapping(value="/getAllDepartmentContact", method=RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	public ResponseEntity<String> getAllDepartmentContact(@RequestBody String requestData){
+		logger.info("getAllDepartmentContact in controller");
+		ResponseEntity<String> result = null;
+		try {
+			String status = employeeService.getAllDepartmentContact(requestData);
+			result = new ResponseEntity<String>(status, HttpStatus.OK);
+		} catch (Exception e) {
+			logger.error("Exception: "+e.getMessage());
+		}
+		return result;
+	}
 }

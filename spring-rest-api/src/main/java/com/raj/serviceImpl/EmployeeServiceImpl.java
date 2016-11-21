@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 import com.raj.beans.DepartmentBean;
+import com.raj.beans.DeptContactDetail;
 import com.raj.beans.EmployeeBean;
 import com.raj.dao.EmployeeDao;
 import com.raj.service.EmployeeService;
@@ -122,6 +123,50 @@ public class EmployeeServiceImpl implements EmployeeService{
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("Exception: "+e.getMessage());
+		}
+		return responseJson.toString();
+	}
+
+	@Override
+	public String getAllDepartment(String requestData) {
+		String status = "0";
+		List<DepartmentBean> list = null;
+		try {
+			list = employeeDao.getAllDepartment();
+			responseJson = new JSONObject();
+			if(list.size() > 0){
+				status = "1";
+				responseJson.put("status",status);
+				responseJson.put("deptList",list);
+			}
+			else{
+				responseJson.put("status",status);
+			}
+		} catch (Exception e) {
+			logger.error("Exception: "+e.getMessage());
+			e.printStackTrace();
+		}
+		return responseJson.toString();
+	}
+
+	@Override
+	public String getAllDepartmentContact(String requestData) {
+		String status = "0";
+		List<DeptContactDetail> list = null;
+		try {
+			list = employeeDao.getAllDepartmentContact();
+			responseJson = new JSONObject();
+			if(list.size() > 0){
+				status = "1";
+				responseJson.put("status",status);
+				responseJson.put("deptContactList",list);
+			}
+			else{
+				responseJson.put("status",status);
+			}
+		} catch (Exception e) {
+			logger.error("Exception: "+e.getMessage());
+			e.printStackTrace();
 		}
 		return responseJson.toString();
 	}
