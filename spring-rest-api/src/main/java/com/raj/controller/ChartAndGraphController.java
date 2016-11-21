@@ -12,14 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.raj.service.ChartAndGraphService;
 
 @RestController
-@RequestMapping(value = "/chartandgraph")
 public class ChartAndGraphController {
 
 	@Autowired
 	private ChartAndGraphService chartService;
 	private static Logger LOGGER = Logger.getLogger(ChartAndGraphController.class);
 	
-	@RequestMapping(value="/getAllCities", method=RequestMethod.POST)
+	@RequestMapping(value="/getAllCities", method=RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	public ResponseEntity<String> getAllCities(@RequestBody String requestData){
 		ResponseEntity<String> result = null;
 		try {
@@ -31,7 +30,7 @@ public class ChartAndGraphController {
 		return result;
 	}
 	
-	@RequestMapping(value="/areaWiseCountries", method=RequestMethod.POST)
+	@RequestMapping(value="/areaWiseCountries", method=RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	public ResponseEntity<String> areaWiseCountries(@RequestBody String requestData){
 		ResponseEntity<String> result = null;
 		try {
@@ -43,7 +42,7 @@ public class ChartAndGraphController {
 		return result;
 	}
 	
-	@RequestMapping(value="/getAllCountryCode", method=RequestMethod.POST)
+	@RequestMapping(value="/getAllCountryCode", method=RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	public ResponseEntity<String> getAllCountryCode(@RequestBody String requestData){
 		ResponseEntity<String> result = null;
 		try {
@@ -55,7 +54,7 @@ public class ChartAndGraphController {
 		return result;
 	}
 	
-	@RequestMapping(value="/cityWisePopulation", method=RequestMethod.POST)
+	@RequestMapping(value="/cityWisePopulation", method=RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	public ResponseEntity<String> cityWisePopulation(@RequestBody String requestData){
 		ResponseEntity<String> result = null;
 		try {
@@ -67,7 +66,7 @@ public class ChartAndGraphController {
 		return result;
 	}
 	
-	@RequestMapping(value="/getStateNames", method=RequestMethod.POST)
+	@RequestMapping(value="/getStateNames", method=RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	public ResponseEntity<String> getStateNames(@RequestBody String requestData){
 		ResponseEntity<String> result = null;
 		try {
@@ -79,7 +78,7 @@ public class ChartAndGraphController {
 		return result;
 	}
 	
-	@RequestMapping(value="/stateWisePopulation", method=RequestMethod.POST)
+	@RequestMapping(value="/stateWisePopulation", method=RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	public ResponseEntity<String> stateWisePopulation(@RequestBody String requestData){
 		ResponseEntity<String> result = null;
 		try {

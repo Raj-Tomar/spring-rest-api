@@ -14,15 +14,24 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.raj.service.EmployeeService;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.Example;
+import io.swagger.annotations.ExampleProperty;
+
 
 @RestController
-@RequestMapping(value = "/employee")
 public class EmployeeController {
-	
+
 	@Autowired
 	EmployeeService employeeService;
 	private static Logger logger = Logger.getLogger(EmployeeController.class);
 	
+	/**
+	 * @param requestData
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/testUrl", method=RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	public ResponseEntity<String> testUrl(@RequestBody String requestData, HttpServletRequest request){
 		logger.info("testUrl");
@@ -35,8 +44,12 @@ public class EmployeeController {
 		}
 		return result;
 	}
-	
-	@RequestMapping(value="/saveOrUpdateEmployee", method=RequestMethod.POST)
+
+	/**
+	 * @param requestData
+	 * @return
+	 */
+	@RequestMapping(value="/saveOrUpdateEmployee", method=RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	public ResponseEntity<String> saveOrUpdateEmployee(@RequestBody String requestData){
 		logger.info("saveOrUpdateEmployee in controller");
 		ResponseEntity<String> result = null;
@@ -48,8 +61,12 @@ public class EmployeeController {
 		}
 		return result;
 	}
-	
-	@RequestMapping(value="/getAllEmployee", method=RequestMethod.POST)
+
+	/**
+	 * @param requestData
+	 * @return
+	 */
+	@RequestMapping(value="/getAllEmployee", method=RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	public ResponseEntity<String> getAllEmployee(@RequestBody String requestData){
 		logger.info("getAllEmployee in controller");
 		ResponseEntity<String> result = null;
@@ -61,9 +78,15 @@ public class EmployeeController {
 		}
 		return result;
 	}
-	
-	@RequestMapping(value="/getEmployeeById", method=RequestMethod.POST)
-	public ResponseEntity<String> getEmployeeById(@RequestBody String requestData){
+
+	/**
+	 * @param requestData
+	 * @return
+	 */
+	@ApiOperation(value = "getEmployeeById", notes = "This api fetches the employee details based on employee id.")
+	@RequestMapping(value="/getEmployeeById", method=RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	public ResponseEntity<String> getEmployeeById(@ApiParam(value = "Find Employee by ID", required = true, 
+			examples = @Example(value = { @ExampleProperty(value = "{\"account\":\"aaa\",\"password\":\"123\"}")})) @RequestBody String requestData){
 		ResponseEntity<String> result = null;
 		try {
 			String status = employeeService.getEmployeeById(requestData);
@@ -73,8 +96,12 @@ public class EmployeeController {
 		}
 		return result;
 	}
-	
-	@RequestMapping(value="/deleteEmployee", method=RequestMethod.POST)
+
+	/**
+	 * @param requestData
+	 * @return
+	 */
+	@RequestMapping(value="/deleteEmployee", method=RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	public ResponseEntity<String> deleteEmployee(@RequestBody String requestData){
 		ResponseEntity<String> result = null;
 		try {
@@ -85,8 +112,12 @@ public class EmployeeController {
 		}
 		return result;
 	}
-	
-	@RequestMapping(value="/saveOrUpdateDepartment", method=RequestMethod.POST)
+
+	/**
+	 * @param requestData
+	 * @return
+	 */
+	@RequestMapping(value="/saveOrUpdateDepartment", method=RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	public ResponseEntity<String> saveOrUpdateDepartment(@RequestBody String requestData){
 		logger.info("saveOrUpdateDepartment in controller");
 		ResponseEntity<String> result = null;

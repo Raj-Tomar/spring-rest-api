@@ -17,7 +17,6 @@ import io.swagger.annotations.ApiResponses;
 
 
 @RestController
-@RequestMapping(value = "/greeting")
 public class GreetingController {
 
 	private static final String template = "Hello, %s!";
