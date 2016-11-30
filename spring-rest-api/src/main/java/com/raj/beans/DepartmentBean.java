@@ -1,7 +1,6 @@
 package com.raj.beans;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -34,12 +33,12 @@ public class DepartmentBean implements Serializable{
 	@Column(name = "status")
 	private String status;
 
-	@ManyToOne(cascade=CascadeType.PERSIST)
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="employee_id")
 	private EmployeeBean employee;
 	
-	@OneToMany(mappedBy="department",cascade=CascadeType.PERSIST)
-	private Set<DeptContactDetail> deptContactDetail = new HashSet<DeptContactDetail>();
+	@OneToMany(mappedBy="department",cascade=CascadeType.ALL)
+	private Set<DeptContactDetail> deptContactDetail;
 	
 	public Integer getId() {
 		return id;
