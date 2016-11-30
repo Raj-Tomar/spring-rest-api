@@ -9,7 +9,7 @@ repositories {
 
 dependencies {
 	compile group: 'log4j', name: 'log4j', version: '1.2.14'
-    compile 'org.springframework:spring-webmvc:4.3.3.RELEASE'
+    compile group: 'org.springframework', name: 'spring-webmvc' version: '4.3.3.RELEASE'
     compile group: 'org.springframework', name: 'spring-tx', version: '4.3.3.RELEASE'
     compile group: 'org.springframework', name: 'spring-jdbc', version: '4.3.3.RELEASE'
     compile group: 'org.springframework', name: 'spring-orm', version: '4.3.3.RELEASE'
