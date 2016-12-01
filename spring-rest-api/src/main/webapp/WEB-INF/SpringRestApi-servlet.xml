@@ -27,9 +27,21 @@
  	
  	<context:property-placeholder location="classpath:hibernate.properties" />
 	
+    <!-- Swagger Configuration Start -->
+    
+    <!-- Required so springfox can access spring's RequestMappingHandlerMapping  -->
+   	<mvc:annotation-driven/>
+	<bean class="com.raj.swagger.config.Swagger2Config"/>
+	<bean class="com.raj.swagger.config.WebAppConfig"/>
+   
+	<!-- Swagger Configuration End -->
+	
+	
 	<!-- Database Configuration Start -->
-				
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		
+	<!-- Single Database Configuration Start-->
+		
+	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 	<property name="driverClassName" value="${jdbc.connection.driver_class}"></property>
 	<property name="url" value="${jdbc.connection.url}"></property>
 	<property name="username" value="${jdbc.connection.username}"></property>
@@ -55,25 +67,92 @@
                 <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2dll.auto}</prop>
             </props>
         </property>
-    </bean>
+    </bean> -->
     
-    <!-- Database Configuration End -->
-    
+   <!--  
     <tx:annotation-driven />
     <tx:annotation-driven transaction-manager="transactionManager"/>
- 
+  
     <bean id="transactionManager"
         class="org.springframework.orm.hibernate5.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory" />
-    </bean>		
-    
-    <!-- Swagger Configuration Start -->
-    
-    <!-- Required so springfox can access spring's RequestMappingHandlerMapping  -->
-   	<mvc:annotation-driven/>
-	<bean class="com.raj.swagger.config.Swagger2Config"/>
-	<bean class="com.raj.swagger.config.WebAppConfig"/>
-   
-	<!-- Swagger Configuration End -->
+    </bean>
+  -->
+  	<!-- Single Database Configuration End-->
 	
+	<!-- Multiple Database Configuration Start-->
+	
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.connection.driver_class}"></property>
+		<property name="url" value="${jdbc.connection.url.test}"></property>
+		<property name="username" value="${jdbc.connection.username}"></property>
+		<property name="password" value="${jdbc.connection.password}"></property>
+	</bean>
+	
+	<bean id="dataSourceWorld" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.connection.driver_class}"></property>
+		<property name="url" value="${jdbc.connection.url.world}"></property>
+		<property name="username" value="${jdbc.connection.username}"></property>
+		<property name="password" value="${jdbc.connection.password}"></property>
+	</bean>
+	
+	<!-- Hibernate 5 SessionFactory Bean definition -->
+	 
+    <bean id="sessionFactory"
+        class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="annotatedClasses">
+	  		<list>
+	   			<value>com.raj.beans.CityBean</value>
+	   			<value>com.raj.beans.CountryBean</value>
+	   			<value>com.raj.beans.EmployeeBean</value>
+	   			<value>com.raj.beans.DepartmentBean</value>
+	   			<value>com.raj.beans.DeptContactDetail</value>
+	  		</list>
+ 		</property> 
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+                <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2dll.auto}</prop>
+            </props>
+        </property>
+    </bean>
+    
+    <bean id="sessionFactoryWorld"
+        class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSourceWorld" />
+        <property name="annotatedClasses">
+	  		<list>
+	   			<value>com.raj.beans.CountryBean</value>
+	  		</list>
+ 		</property> 
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+                <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2dll.auto}</prop>
+            </props>
+        </property>
+    </bean>
+    
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+	<tx:annotation-driven transaction-manager="txnManagerWorld"/>
+	
+	<bean id="transactionManager"
+      class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+    	<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="txnManagerWorld"
+	      class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+	    <property name="sessionFactory" ref="sessionFactoryWorld" />
+	</bean>
+	
+	<bean id="persistenceExceptionTranslationPostProcessor"
+      class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+	
+	<!-- Multiple Database Configuration End-->
+	
+	<!-- Database Configuration End -->
  </beans>
