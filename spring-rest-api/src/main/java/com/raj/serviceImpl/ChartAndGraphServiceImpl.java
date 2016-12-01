@@ -13,21 +13,17 @@ import com.raj.dto.KeyValueDto;
 import com.raj.service.ChartAndGraphService;
 
 @Service
-//@Scope(value = "prototype")
 public class ChartAndGraphServiceImpl implements ChartAndGraphService{
 	
 	@Autowired
 	private ChartAndGraphDao chartDao;
-	private JSONObject requestJson = null;
-	private JSONObject responseJson = null;
-	
 	private static Logger LOGGER = Logger.getLogger(ChartAndGraphServiceImpl.class);
 
-	
 	@Override
 	public String getAllCities(String requestData) {
 		String status = "0";
 		List<CityBean> list = null;
+		JSONObject responseJson = null;
 		try {
 			list = chartDao.getAllCities();
 			responseJson = new JSONObject();
@@ -50,8 +46,9 @@ public class ChartAndGraphServiceImpl implements ChartAndGraphService{
 	public String areaWiseCountries(String requestData) {
 		String status = "0";
 		List<KeyValueDto> list = null;
+		JSONObject responseJson = null;
 		try {
-			requestJson = new JSONObject(requestData);
+			JSONObject requestJson = new JSONObject(requestData);
 			LOGGER.info("RequestData: "+requestJson.toString());
 			list = chartDao.areaWiseCountries(requestData);
 			responseJson = new JSONObject();
@@ -73,8 +70,9 @@ public class ChartAndGraphServiceImpl implements ChartAndGraphService{
 	public String getAllCountryCode(String requestData) {
 		String status = "0";
 		List<String> list = null;
+		JSONObject responseJson = null;
 		try {
-			requestJson = new JSONObject(requestData);
+			JSONObject requestJson = new JSONObject(requestData);
 			LOGGER.info("RequestData: "+requestJson.toString());
 			list = chartDao.getAllCountryCode(requestData);
 			responseJson = new JSONObject();
@@ -96,8 +94,9 @@ public class ChartAndGraphServiceImpl implements ChartAndGraphService{
 	public String cityWisePopulation(String requestData) {
 		String status = "0";
 		List<CityBean> list = null;
+		JSONObject responseJson = null;
 		try {
-			requestJson = new JSONObject(requestData);
+			JSONObject requestJson = new JSONObject(requestData);
 			LOGGER.info("RequestData: "+requestJson.toString());
 			JSONObject jObj = requestJson.getJSONObject("requestData");
 			String countryCode = jObj.getString("countryCode");
@@ -121,8 +120,9 @@ public class ChartAndGraphServiceImpl implements ChartAndGraphService{
 	public String getStateNames(String requestData) {
 		String status = "0";
 		List<String> list = null;
+		JSONObject responseJson = null;
 		try {
-			requestJson = new JSONObject(requestData);
+			JSONObject requestJson = new JSONObject(requestData);
 			LOGGER.info("RequestData: "+requestJson.toString());
 			list = chartDao.getStateNames(requestData);
 			responseJson = new JSONObject();
@@ -144,8 +144,9 @@ public class ChartAndGraphServiceImpl implements ChartAndGraphService{
 	public String stateWisePopulation(String requestData) {
 		String status = "0";
 		List<CityBean> list = null;
+		JSONObject responseJson = null;
 		try {
-			requestJson = new JSONObject(requestData);
+			JSONObject requestJson = new JSONObject(requestData);
 			LOGGER.info("RequestData: "+requestJson.toString());
 			JSONObject jObj = requestJson.getJSONObject("requestData");
 			String stateName = jObj.getString("stateName");
@@ -155,6 +156,31 @@ public class ChartAndGraphServiceImpl implements ChartAndGraphService{
 				status = "1";
 				responseJson.put("status", status);
 				responseJson.put("statePopulation", list);
+			}
+			else{
+				responseJson.put("status", status);
+			}
+		} catch (Exception e) {
+			LOGGER.error("Exception: "+e.getMessage());
+		}
+		return responseJson.toString();
+	}
+
+
+	@Override
+	public String getPopulation(String requestData) {
+		String status = "0";
+		List<CityBean> list = null;
+		JSONObject responseJson = null;
+		try {
+			JSONObject requestJson = new JSONObject(requestData);
+			LOGGER.info("RequestData: "+requestJson.toString());
+			list = chartDao.getPopulation();
+			responseJson = new JSONObject();
+			if(list.size() > 0){
+				status = "1";
+				responseJson.put("status", status);
+				responseJson.put("population", list);
 			}
 			else{
 				responseJson.put("status", status);

@@ -41,4 +41,10 @@ public interface ChartAndGraphService {
 	 * @return
 	 */
 	public String stateWisePopulation(String requestData);
+
+	/**
+	 * @param requestData
+	 * @return
+	 */
+	public String getPopulation(String requestData);
 }

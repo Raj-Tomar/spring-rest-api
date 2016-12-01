@@ -89,4 +89,16 @@ public class ChartAndGraphController {
 		}
 		return result;
 	}
+	
+	@RequestMapping(value="/getPopulation", method=RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	public ResponseEntity<String> getPopulation(@RequestBody String requestData){
+		ResponseEntity<String> result = null;
+		try {
+			String status = chartService.getPopulation(requestData);
+			result = new ResponseEntity<String>(status, HttpStatus.OK);
+		} catch (Exception e) {
+			LOGGER.error("Exception: "+e.getMessage());
+		}
+		return result;
+	}
 }

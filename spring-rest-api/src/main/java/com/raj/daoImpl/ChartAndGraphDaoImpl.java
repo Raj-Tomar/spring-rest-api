@@ -19,12 +19,10 @@ import com.raj.dao.ChartAndGraphDao;
 import com.raj.dto.KeyValueDto;
 
 @Repository
-//@Scope(value = "prototype")
 public class ChartAndGraphDaoImpl implements ChartAndGraphDao{
 	
 	@Autowired
 	private SessionFactory sessionFactory;
-	
 	private static Logger LOGGER = Logger.getLogger(ChartAndGraphDaoImpl.class);
 	
 	@Override
@@ -40,12 +38,10 @@ public class ChartAndGraphDaoImpl implements ChartAndGraphDao{
 			criteria.select( root );
 			list = session.createQuery( criteria ).getResultList();
 			LOGGER.info("Total Cities: "+list.size());
-		} 
-		catch (Exception e) {
+		} catch (Exception e) {
 			LOGGER.error("Exception: "+e.getMessage());
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			if(session.isOpen()){
 				session.close();
 			}
@@ -64,8 +60,7 @@ public class ChartAndGraphDaoImpl implements ChartAndGraphDao{
 			list.add(new KeyValueDto("Brazil", "8514877"));
 			list.add(new KeyValueDto("Australia", "7741220"));
 			list.add(new KeyValueDto("India", "3287263"));
-		} 
-		catch (Exception e) {
+		} catch (Exception e) {
 			LOGGER.error("Exception: "+e.getMessage());
 		}
 		return list;
@@ -81,11 +76,9 @@ public class ChartAndGraphDaoImpl implements ChartAndGraphDao{
 			Query<String> query = session.createQuery("Select code From CountryBean");
 			list = query.getResultList();
 			LOGGER.info("Total Country Codes: "+list.size());
-		} 
-		catch (Exception e) {
+		} catch (Exception e) {
 			LOGGER.error("Exception: "+e.getMessage());
-		}
-		finally {
+		} finally {
 			if(session.isOpen()){
 				session.close();
 			}
@@ -105,11 +98,9 @@ public class ChartAndGraphDaoImpl implements ChartAndGraphDao{
 			query.setParameter(0, countryCode);
 			list = query.getResultList();;
 			LOGGER.info("Total Cities In selected Country: "+list.size());
-		} 
-		catch (Exception e) {
+		} catch (Exception e) {
 			LOGGER.error("Exception: "+e.getMessage());
-		}
-		finally {
+		} finally {
 			if(session.isOpen()){
 				session.close();
 			}
@@ -128,14 +119,11 @@ public class ChartAndGraphDaoImpl implements ChartAndGraphDao{
 			//Query<String> query = session.createSQLQuery("SELECT DISTINCT CONVERT(district USING utf8) FROM city");
 			list = query.getResultList();;
 			LOGGER.info("Total District: "+list.size());
-		} 
-		catch (Exception e) {
+		} catch (Exception e) {
 			LOGGER.error("Exception: "+e.getMessage());
-		}
-		finally {
-			if(session.isOpen()){
+		} finally {
+			if(session.isOpen())
 				session.close();
-			}
 		}
 		return list;
 	}
@@ -152,17 +140,32 @@ public class ChartAndGraphDaoImpl implements ChartAndGraphDao{
 			query.setParameter(0, stateName);
 			list = query.getResultList();;
 			LOGGER.info("Total Cities In Selected District: "+list.size());
-		} 
-		catch (Exception e) {
+		} catch (Exception e) {
 			LOGGER.error("Exception: "+e.getMessage());
-		}
-		finally {
-			if(session.isOpen()){
+		} finally {
+			if(session.isOpen())
 				session.close();
-			}
 		}
 		return list;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<CityBean> getPopulation() {
+		Session session = null;
+		List<CityBean> list = new ArrayList<CityBean>();
+		try {
+			session = sessionFactory.openSession();
+			Query<CityBean> query = session.createQuery("From CityBean");
+			list = query.getResultList();;
+			LOGGER.info("Total Records: "+list.size());
+		} catch (Exception e) {
+			LOGGER.error("Exception: "+e.getMessage());
+		} finally {
+			if(session.isOpen())
+				session.close();
+		}
+		return list;
+	}
 
 }

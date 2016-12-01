@@ -46,4 +46,9 @@ public interface ChartAndGraphDao {
 	 */
 	public List<CityBean> stateWisePopulation(String stateName);
 
+	/**
+	 * @return
+	 */
+	public List<CityBean> getPopulation();
+
 }
