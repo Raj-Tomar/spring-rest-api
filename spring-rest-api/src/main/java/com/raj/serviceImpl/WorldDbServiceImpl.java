@@ -44,5 +44,20 @@ public class WorldDbServiceImpl implements WorldDbService{
 		}
 		return responseJson.toString();
 	}
-
+	
+	
+	/* (non-Javadoc)
+	 * @see com.raj.service.WorldDbService#getAllCountry(com.raj.beans.CountryBean)
+	 */
+	@Override
+	public List<CountryBean> getAllCountry(CountryBean requestData) {
+		List<CountryBean> list = null;
+		try {
+			list = worldDbDao.getAllCountry();
+		} catch (Exception e) {
+			logger.error("Exception: "+e.getMessage());
+			e.printStackTrace();
+		}
+		return list;
+	}
 }
