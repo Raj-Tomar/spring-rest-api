@@ -2,13 +2,9 @@ package com.raj.dao;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
-
 import com.raj.beans.CityBean;
 import com.raj.dto.KeyValueDto;
 
-@Repository
-//@Scope(value = "prototype")
 public interface ChartAndGraphDao {
 
 	/**

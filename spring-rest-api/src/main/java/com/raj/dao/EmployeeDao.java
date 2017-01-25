@@ -2,14 +2,10 @@ package com.raj.dao;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
-
 import com.raj.beans.DepartmentBean;
 import com.raj.beans.DeptContactDetail;
 import com.raj.beans.EmployeeBean;
 
-@Repository
-//@Scope(value = "prototype")
 public interface EmployeeDao {
 
 	/**
