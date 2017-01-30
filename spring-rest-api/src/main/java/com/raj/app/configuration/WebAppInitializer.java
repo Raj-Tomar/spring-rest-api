@@ -9,8 +9,6 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
-import com.raj.swagger.config.Swagger2Config;
-
 @Configuration
 public class WebAppInitializer implements WebApplicationInitializer {
 
@@ -18,7 +16,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		// Create the dispatcher servlet's Spring application context
         AnnotationConfigWebApplicationContext dispatcherServlet = new AnnotationConfigWebApplicationContext();
-        dispatcherServlet.register(AppConfig.class,Swagger2Config.class);
+        dispatcherServlet.register(AppConfig.class);
              
         // Register and map the dispatcher servlet
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet(dispatcherServlet));
