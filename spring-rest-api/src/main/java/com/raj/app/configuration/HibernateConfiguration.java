@@ -4,13 +4,13 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
-import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -85,7 +85,7 @@ public class HibernateConfiguration {
     // DataSource Configuration Start
     @Bean(name = "dataSource")
 	public DataSource getDataSource() {
-		BasicDataSource dataSource = new BasicDataSource();
+    	DriverManagerDataSource dataSource = new DriverManagerDataSource();
 	    dataSource.setDriverClassName(environment.getRequiredProperty("jdbc.connection.driver_class"));
 	    dataSource.setUrl(environment.getRequiredProperty("jdbc.connection.url.test"));
 	    dataSource.setUsername(environment.getRequiredProperty("jdbc.connection.username"));
@@ -95,7 +95,7 @@ public class HibernateConfiguration {
     
     @Bean(name = "dataSourceWorld")
 	public DataSource getDataSourceWorld() {
-		BasicDataSource dataSourceWorld = new BasicDataSource();
+    	DriverManagerDataSource dataSourceWorld = new DriverManagerDataSource();
 		dataSourceWorld.setDriverClassName(environment.getRequiredProperty("jdbc.connection.driver_class"));
 		dataSourceWorld.setUrl(environment.getRequiredProperty("jdbc.connection.url.world"));
 		dataSourceWorld.setUsername(environment.getRequiredProperty("jdbc.connection.username"));
