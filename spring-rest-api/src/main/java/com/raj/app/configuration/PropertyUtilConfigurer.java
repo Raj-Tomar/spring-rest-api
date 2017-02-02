@@ -16,15 +16,14 @@ public class PropertyUtilConfigurer extends PropertyPlaceholderConfigurer {
 
 	private Properties appProperties = new Properties();
 
-	private final String PROPERTIES_FILE = File.separator;// + "APP_HOME" +
-															// File.separator;
+	private final String PROPERTIES_FILE = File.separator;// + "APP_HOME" + File.separator;
 
 	@Override
 	public void setProperties(Properties properties) {
 		super.setProperties(properties);
 	}
 
-	public String fetchRequestDumperHomePath() {
+	public String fetchApplicationHomePath() {
 		String ucm_home_path = System.getProperty(APP_HOME);
 		if (ucm_home_path == null) {
 			logger.info("Not able to get system property " + APP_HOME + ". Trying to get from system environment.");
@@ -44,7 +43,7 @@ public class PropertyUtilConfigurer extends PropertyPlaceholderConfigurer {
 	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
 		String propertiesFilePath = null;
 		try {
-			String ucm_home = fetchRequestDumperHomePath();
+			String ucm_home = fetchApplicationHomePath();
 			propertiesFilePath = ucm_home + PROPERTIES_FILE + getFileName();
 			logger.info("Reading properties file: " + propertiesFilePath);
 
