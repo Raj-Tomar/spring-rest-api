@@ -6,7 +6,6 @@ import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -25,18 +24,21 @@ public class HibernateConfiguration {
 	private Environment environment;
 
 	// Hibernate Properties Configuration Start
-
+	
+	// Reading file from Environment Path variable
+	/*
 	@Bean(name="propertyConfigurer")
 	public static PropertyPlaceholderConfigurer properties(){
 		PropertyUtilConfigurer ppc = new PropertyUtilConfigurer();
-		/*Resource[] resources = new ClassPathResource[ ]
+		Resource[] resources = new ClassPathResource[ ]
 					{ new ClassPathResource( "application.properties" ) };
-			ppc.setLocations( resources );*/
+			ppc.setLocations( resources );
 		ppc.setFileName("application.properties");
 		ppc.setIgnoreUnresolvablePlaceholders( true );
 		return ppc;
 	}
-
+	 */
+	
 	private Properties getHibernateProperties() {
 		Properties properties = new Properties();
 		properties.put("hibernate.dialect", environment.getRequiredProperty("hibernate.dialect"));
@@ -118,8 +120,8 @@ public class HibernateConfiguration {
 
 
 	// Multiple Database Configuration End
-	
-	
+
+
 	/*
 	@Bean(name = "dataSource")
 	public DataSource getDataSource() {
