@@ -26,10 +26,12 @@ dependencies {
 	
 }
 
+/*
 gretty {
   port = 8181
   contextPath = 'spring-rest'
 }
+*/
 
 //For Eclipse IDE only
 eclipse {
