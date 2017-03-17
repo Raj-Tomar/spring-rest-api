@@ -222,5 +222,28 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		}
 		return list;
 	}
+	
+	/*
+	public List advanceSearch(String keyword) {
+		Session session = sessionFactory.openSession();
+		tx = session.beginTransaction();
+		
+		Criteria cr = session.createCriteria(Employee.class)
+				.add(Restrictions.or(
+						Restrictions.ilike("name", "%"+keyword.toLowerCase()+"%", MatchMode.ANYWHERE),
+						Restrictions.or(
+								Restrictions.ilike("gender", "%"+keyword.toLowerCase()+"%", MatchMode.ANYWHERE), 
+						Restrictions.or(
+								Restrictions.ilike("email", "%"+keyword.toLowerCase()+"%", MatchMode.ANYWHERE), 
+						Restrictions.or(
+								Restrictions.ilike("mobile", "%"+keyword.toLowerCase()+"%", MatchMode.ANYWHERE),
+								Restrictions.ilike("department", "%"+keyword.toLowerCase()+"%", MatchMode.ANYWHERE)))))
+					);
+		List results = cr.list();
+		
+		session.close();
+		return results;
+	}
+	*/
 
 }
