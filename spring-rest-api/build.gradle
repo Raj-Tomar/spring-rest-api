@@ -8,13 +8,24 @@ repositories {
 }
 
 dependencies {
+	// Logger
 	compile group: 'log4j', name: 'log4j', version: '1.2.14'
+	
+	// Spring MVC
     compile group: 'org.springframework', name: 'spring-webmvc', version: '4.3.3.RELEASE'
+    
+    // Spring JDBC
     compile group: 'org.springframework', name: 'spring-tx', version: '4.3.3.RELEASE'
     compile group: 'org.springframework', name: 'spring-jdbc', version: '4.3.3.RELEASE'
     compile group: 'org.springframework', name: 'spring-orm', version: '4.3.3.RELEASE'
+    
+    // MySql Connector
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
+    
+    // Hibernate
 	compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.3.Final'
+	
+	// JSON
 	compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.8.4'
 	compile group: 'jstl', name: 'jstl', version: '1.2'
 	compile group: 'org.json', name: 'json', version: '20160810'
