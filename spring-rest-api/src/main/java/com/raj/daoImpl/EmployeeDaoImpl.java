@@ -8,10 +8,14 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -19,6 +23,7 @@ import com.raj.beans.DepartmentBean;
 import com.raj.beans.DeptContactDetail;
 import com.raj.beans.EmployeeBean;
 import com.raj.dao.EmployeeDao;
+import com.raj.dto.EmpDto;
 
 @Repository
 //@Scope(value = "prototype")
@@ -55,8 +60,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
 			}
 		}
 		catch(Exception e){
-			tx.rollback();
-			e.printStackTrace();
+			LOGGER.error("Exception: ", e);
 		}
 		finally{
 			if(session.isOpen()){
@@ -89,7 +93,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
 			//list = query.getResultList();
 		}
 		catch(Exception e){
-			e.printStackTrace();
+			LOGGER.error("Exception: ", e);
 		}
 		finally{
 			if(session.isOpen()){
@@ -108,7 +112,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
 			bean = session.get(EmployeeBean.class, id);
 		} 
 		catch (Exception e) {
-			LOGGER.error("Exception: "+e.getMessage());
+			LOGGER.error("Exception: ", e);
 		}
 		finally {
 			if(session.isOpen()){
@@ -134,7 +138,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
 			}
 		} catch (Exception e) {
 			tx.rollback();
-			LOGGER.error("Exception: "+e.getMessage());
+			LOGGER.error("Exception: ", e);
 		}
 		return status;
 	}
@@ -166,7 +170,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		}
 		catch(Exception e){
 			tx.rollback();
-			e.printStackTrace();
+			LOGGER.error("Exception: ", e);
 		}
 		finally{
 			if(session.isOpen()){
@@ -191,7 +195,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
 			list = session.createQuery( criteria ).getResultList();
 			LOGGER.info("Total Employees: "+list.size());
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.error("Exception: ", e);
 		} finally {
 			if(session.isOpen()){
 				session.close();
@@ -214,7 +218,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
 			list = session.createQuery( criteria ).getResultList();
 			LOGGER.info("Total Employees: "+list.size());
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.error("Exception: ", e);
 		} finally {
 			if(session.isOpen()){
 				session.close();
@@ -222,6 +226,42 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		}
 		return list;
 	}
+
+	@SuppressWarnings({ "unchecked", "deprecation" })
+	@Override
+	public List<EmpDto> getEmployeeAndDeptDetails() {
+		Session session = null;
+		List<EmpDto> list = new ArrayList<EmpDto>();
+		try{
+			session = sessionFactory.openSession();
+			// Hibernate 5.2 Criteria
+			/*CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<EmployeeBean> criteria = builder.createQuery( EmployeeBean.class );
+			Root<EmployeeBean> root = criteria.from( EmployeeBean.class );
+			criteria.select( root );
+			list = session.createQuery( criteria ).getResultList();
+			LOGGER.info("Total Employees: "+list.size());*/
+			
+			Criteria crt = session.createCriteria(EmployeeBean.class);
+			crt.createAlias("department", "dept");
+			ProjectionList projList = Projections.projectionList();
+			projList.add(Projections.property("firstName"),"firstName");
+			projList.add(Projections.property("dept.departmentName"),"departmentName");
+			crt.setProjection(projList);
+			crt.setResultTransformer(Transformers.aliasToBean(EmpDto.class));
+			list = (List<EmpDto>) crt.list();
+		}
+		catch(Exception e){
+			LOGGER.error("Exception: ", e);
+		}
+		finally{
+			if(session.isOpen()){
+				session.close();
+			}
+		}
+		return list;
+	}
+	
 	
 	/*
 	public List advanceSearch(String keyword) {

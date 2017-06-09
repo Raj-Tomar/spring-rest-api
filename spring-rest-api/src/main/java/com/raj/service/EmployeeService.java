@@ -41,5 +41,11 @@ public interface EmployeeService {
 	 * @return
 	 */
 	public String getAllDepartmentContact(String requestData);
+
+	/**
+	 * @param requestData
+	 * @return
+	 */
+	public String getEmployeeAndDeptDetails(String requestData);
 	
 }

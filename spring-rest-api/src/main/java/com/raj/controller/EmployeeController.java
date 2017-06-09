@@ -163,4 +163,21 @@ public class EmployeeController {
 		}
 		return result;
 	}
+	
+	/**
+	 * @param requestData
+	 * @return
+	 */
+	@RequestMapping(value="/getEmployeeAndDeptDetails", method=RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	public ResponseEntity<String> getEmployeeAndDeptDetails(@RequestBody String requestData){
+		logger.info("getEmployeeAndDeptDetails in controller");
+		ResponseEntity<String> result = null;
+		try {
+			String status = employeeService.getEmployeeAndDeptDetails(requestData);
+			result = new ResponseEntity<String>(status, HttpStatus.OK);
+		} catch (Exception e) {
+			logger.error("Exception: "+e.getMessage());
+		}
+		return result;
+	}
 }

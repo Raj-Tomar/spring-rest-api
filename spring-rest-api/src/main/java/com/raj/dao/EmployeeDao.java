@@ -5,6 +5,7 @@ import java.util.List;
 import com.raj.beans.DepartmentBean;
 import com.raj.beans.DeptContactDetail;
 import com.raj.beans.EmployeeBean;
+import com.raj.dto.EmpDto;
 
 public interface EmployeeDao {
 
@@ -43,5 +44,10 @@ public interface EmployeeDao {
 	 * @return
 	 */
 	public List<DeptContactDetail> getAllDepartmentContact();
+
+	/**
+	 * @return
+	 */
+	public List<EmpDto> getEmployeeAndDeptDetails();
 	
 }
