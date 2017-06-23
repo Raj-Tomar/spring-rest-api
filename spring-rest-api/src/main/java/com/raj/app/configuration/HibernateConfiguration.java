@@ -10,10 +10,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 @Configuration
 @EnableTransactionManagement
@@ -78,7 +79,8 @@ public class HibernateConfiguration {
 
 	// DataSource Configuration Start
 	@Bean(name = "dataSource")
-	public DataSource getDataSource() {
+	public DataSource getDataSource() throws Exception {
+		/*
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName(environment.getRequiredProperty("jdbc.connection.driver_class"));
 		dataSource.setUrl(environment.getRequiredProperty("jdbc.connection.url.test"));
@@ -86,10 +88,29 @@ public class HibernateConfiguration {
 		dataSource.setPassword(environment.getRequiredProperty("jdbc.connection.password"));
 		dataSource.setConnectionProperties(getConnectionPoolProperties());
 		return dataSource;
+		*/
+
+		// Connection Pooling
+		ComboPooledDataSource dataSource = new ComboPooledDataSource();
+		dataSource.setDriverClass(environment.getRequiredProperty("jdbc.connection.driver_class"));
+		dataSource.setJdbcUrl(environment.getRequiredProperty("jdbc.connection.url.test"));
+		dataSource.setUser(environment.getRequiredProperty("jdbc.connection.username"));
+		dataSource.setPassword(environment.getRequiredProperty("jdbc.connection.password"));
+		/*
+		dataSource.setAcquireIncrement(5);
+		dataSource.setIdleConnectionTestPeriod(60);
+		dataSource.setMaxPoolSize(100);
+		dataSource.setMaxStatements(50);
+		dataSource.setMinPoolSize(10);
+		*/
+		//dataSource.setProperties(getConnectionPoolProperties());
+		return dataSource;
+		
 	}
 
 	@Bean(name = "dataSourceWorld")
-	public DataSource getDataSourceWorld() {
+	public DataSource getDataSourceWorld() throws Exception {
+		/*
 		DriverManagerDataSource dataSourceWorld = new DriverManagerDataSource();
 		dataSourceWorld.setDriverClassName(environment.getRequiredProperty("jdbc.connection.driver_class"));
 		dataSourceWorld.setUrl(environment.getRequiredProperty("jdbc.connection.url.world"));
@@ -97,6 +118,17 @@ public class HibernateConfiguration {
 		dataSourceWorld.setPassword(environment.getRequiredProperty("jdbc.connection.password"));
 		dataSourceWorld.setConnectionProperties(getConnectionPoolProperties());
 		return dataSourceWorld;
+		*/
+		
+		// Connection Pooling
+		ComboPooledDataSource dataSourceWorld = new ComboPooledDataSource();
+		dataSourceWorld.setDriverClass(environment.getRequiredProperty("jdbc.connection.driver_class"));
+		dataSourceWorld.setJdbcUrl(environment.getRequiredProperty("jdbc.connection.url.world"));
+		dataSourceWorld.setUser(environment.getRequiredProperty("jdbc.connection.username"));
+		dataSourceWorld.setPassword(environment.getRequiredProperty("jdbc.connection.password"));
+		//dataSourceWorld.setProperties(getConnectionPoolProperties());
+		return dataSourceWorld;
+		
 	}
 	// DataSource Configuration End
 

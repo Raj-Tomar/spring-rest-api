@@ -40,8 +40,11 @@
 	<!-- Database Configuration Start -->
 		
 	<!-- Single Database Configuration Start-->
-		
+	
+	<!-- <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close"> -->	
 	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	
+	
 	<property name="driverClassName" value="${jdbc.connection.driver_class}"></property>
 	<property name="url" value="${jdbc.connection.url}"></property>
 	<property name="username" value="${jdbc.connection.username}"></property>
