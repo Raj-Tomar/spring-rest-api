@@ -39,13 +39,36 @@ public class HibernateConfiguration {
 	}
 	 */
 	
+	// Hibernate Properties
 	private Properties getHibernateProperties() {
 		Properties properties = new Properties();
 		properties.put("hibernate.dialect", environment.getRequiredProperty("hibernate.dialect"));
 		properties.put("hibernate.show_sql", environment.getRequiredProperty("hibernate.show_sql"));
 		properties.put("hibernate.format_sql", environment.getRequiredProperty("hibernate.format_sql"));
+		properties.put("hibernate.jdbc.batch_size", environment.getRequiredProperty("hibernate.jdbc.batch_size"));
+		properties.put("hibernate.c3p0.max_size", environment.getRequiredProperty("hibernate.c3p0.max_size"));
+		properties.put("hibernate.order_updates", environment.getRequiredProperty("hibernate.order_updates"));
+		properties.put("hibernate.jdbc.batch_versioned_data", environment.getRequiredProperty("hibernate.jdbc.batch_versioned_data"));
+		properties.put("hibernate.temp.use_jdbc_metadata_defaults", environment.getRequiredProperty("hibernate.temp.use_jdbc_metadata_defaults"));
+		properties.put("hibernate.connection.autocommit", environment.getRequiredProperty("hibernate.connection.autocommit"));
+		
+		properties.put("hibernate.connection.release_mode", environment.getRequiredProperty("hibernate.connection.release_mode"));
 		return properties;
 	}
+	
+	// Connection Pool Properties
+	private Properties getConnectionPoolProperties() {
+		Properties properties = new Properties();
+		properties.put("initialPoolSize", environment.getRequiredProperty("hibernate.c3p0.initialPoolSize"));
+		properties.put("minPoolSize", environment.getRequiredProperty("hibernate.c3p0.min_size"));
+		properties.put("maxPoolSize", environment.getRequiredProperty("hibernate.c3p0.max_size"));
+		properties.put("acquireIncrement", environment.getRequiredProperty("hibernate.c3p0.acquire_increment"));
+		properties.put("idleConnectionTestPeriod", environment.getRequiredProperty("hibernate.c3p0.idle_test_period"));
+		properties.put("loginTimeout", environment.getRequiredProperty("hibernate.c3p0.timeout"));
+		properties.put("maxIdleTimeExcessConnections", environment.getRequiredProperty("hibernate.c3p0.maxIdleTimeExcessConnections"));
+		return properties;
+	}
+	
 	// Hibernate Properties Configuration End
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -61,6 +84,7 @@ public class HibernateConfiguration {
 		dataSource.setUrl(environment.getRequiredProperty("jdbc.connection.url.test"));
 		dataSource.setUsername(environment.getRequiredProperty("jdbc.connection.username"));
 		dataSource.setPassword(environment.getRequiredProperty("jdbc.connection.password"));
+		dataSource.setConnectionProperties(getConnectionPoolProperties());
 		return dataSource;
 	}
 
@@ -71,6 +95,7 @@ public class HibernateConfiguration {
 		dataSourceWorld.setUrl(environment.getRequiredProperty("jdbc.connection.url.world"));
 		dataSourceWorld.setUsername(environment.getRequiredProperty("jdbc.connection.username"));
 		dataSourceWorld.setPassword(environment.getRequiredProperty("jdbc.connection.password"));
+		dataSourceWorld.setConnectionProperties(getConnectionPoolProperties());
 		return dataSourceWorld;
 	}
 	// DataSource Configuration End
