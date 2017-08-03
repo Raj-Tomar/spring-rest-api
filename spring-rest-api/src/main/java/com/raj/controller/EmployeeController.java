@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +25,13 @@ import io.swagger.annotations.ExampleProperty;
 public class EmployeeController {
 
 	@Autowired
+	@Qualifier("employeeServiceImpl")
 	EmployeeService employeeService;
+	
+	@Autowired
+	@Qualifier("employeeServiceImpl2")
+	EmployeeService employeeService2;
+	
 	private static Logger logger = Logger.getLogger(EmployeeController.class);
 	
 	/**
@@ -71,6 +78,7 @@ public class EmployeeController {
 		logger.info("getAllEmployee in controller");
 		ResponseEntity<String> result = null;
 		try {
+			employeeService2.getEmployeeList(requestData);
 			String status = employeeService.getEmployeeList(requestData);
 			result = new ResponseEntity<String>(status, HttpStatus.OK);
 		} catch (Exception e) {
